@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCL Mining Sardar</title>
+    <link rel="stylesheet" href="Msardar.css">
+   
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>WCL 2017 MINING SIRDAR QUESTION PAPER (Flashcards)</h2>
+
+        <div class="flashcard-container">
+            <div class="flashcard" id="card">
+                <div class="card-face card-front" id="card-front"></div>
+                <div class="card-face card-back" id="card-back"></div>
+            </div>
+            <div class="controls">
+                <button class="btn" id="prev-btn">पिछला (Prev)</button>
+                <button class="btn" id="next-btn">अगला (Next)</button>
+            </div>
+            <p id="card-progress" style="margin-top: 15px; color: #666;"></p>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script type="module">
+
+        import { chemicalData } from './Sardar2017.js';
+
+        let currentCardIndex = 0;
+
+        function initFlashcards() {
+            const card = document.getElementById('card');
+            card.classList.remove('flip');
+
+            const current = chemicalData[currentCardIndex];
+            document.getElementById('card-front').innerHTML = `<div>${current.Question}</div><div class="card-subtext">(उत्तर के लिए क्लिक करें)</div>`;
+            document.getElementById('card-back').innerHTML = `<div>${current.Answer}</div>`;
+            document.getElementById('card-progress').innerText = `कार्ड: ${currentCardIndex + 1} / ${chemicalData.length}`;
+        }
+
+        // Event Listeners जोड़ें
+        document.getElementById('card').addEventListener('click', () => {
+            document.getElementById('card').classList.toggle('flip');
+        });
+
+        document.getElementById('next-btn').addEventListener('click', () => {
+            currentCardIndex = (currentCardIndex + 1) % chemicalData.length;
+            initFlashcards();
+        });
+
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            currentCardIndex = (currentCardIndex - 1 + chemicalData.length) % chemicalData.length;
+            initFlashcards();
+        });
+
+        // फ़्लैशकार्ड्स प्रारम्भ करें
+        initFlashcards();
+    </script>
+
+
+
+</body>
+
+</html>
